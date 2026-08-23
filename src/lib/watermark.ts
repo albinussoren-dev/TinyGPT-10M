@@ -1,0 +1,2 @@
+import { PDFDocument, rgb, StandardFonts, degrees } from 'pdf-lib';
+export async function watermarkPdf(input:ArrayBuffer, label:string){const pdf=await PDFDocument.load(input); const font=await pdf.embedFont(StandardFonts.Helvetica); for(const page of pdf.getPages()){const {width,height}=page.getSize(); page.drawText(label,{x:40,y:height/2,size:20,font,color:rgb(0.75,0.75,0.75),rotate:degrees(35),opacity:0.35}); page.drawText(`Licensed to ${label}`.slice(0,120),{x:24,y:24,size:9,font,color:rgb(0.35,0.35,0.35)});} return pdf.save();}
